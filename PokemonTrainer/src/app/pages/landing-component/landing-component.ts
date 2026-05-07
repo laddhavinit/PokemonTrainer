@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TrainerService } from '../../services/trainer.service';
 
 @Component({
   selector: 'app-landing-component',
@@ -11,11 +12,14 @@ import { Router } from '@angular/router';
 export class LandingComponent {
   trainerName: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private trainerService: TrainerService
+  ) {}
 
   onSubmit() {
     if (this.trainerName.trim()) {
-      localStorage.setItem('trainerName', this.trainerName.trim());
+      this.trainerService.setTrainerName(this.trainerName.trim());
       this.router.navigate(['/catalogue']);
     }
   }

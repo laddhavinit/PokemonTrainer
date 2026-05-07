@@ -1,0 +1,49 @@
+<header class="app-header">
+  <div class="container">
+    <div class="header-content">
+      <!-- Left side - Navigation -->
+      <nav class="header-nav">
+        <div class="nav-brand">
+          <img src="/assets/Closed Pokeball.png" alt="Pokémon" class="brand-icon" />
+          <span class="brand-text">Pokémon Trainer</span>
+        </div>
+        
+        <div class="nav-links">
+          <a 
+            routerLink="/catalogue" 
+            routerLinkActive="nav-link-active"
+            class="nav-link"
+          >
+            <img src="/assets/Closed Pokeball.png" alt="Catalogue" class="nav-icon" />
+            Catalogue
+          </a>
+          <a 
+            routerLink="/trainer" 
+            routerLinkActive="nav-link-active"
+            class="nav-link"
+          >
+            <img src="/assets/Caught Pokeball.png" alt="Collection" class="nav-icon" />
+            My Collection
+          </a>
+        </div>
+      </nav>
+
+      <!-- Right side - User info and logout -->
+      <div class="header-actions">
+        <div class="user-info">
+          <span class="user-avatar">👤</span>
+          <span class="user-name">{{ trainerName }}</span>
+        </div>
+        
+        <button 
+          (click)="logout()" 
+          class="logout-btn"
+          title="Logout"
+        >
+          <img src="/assets/Open Pokeball.png" alt="Logout" class="logout-icon" />
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
