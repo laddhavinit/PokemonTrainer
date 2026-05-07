@@ -10,34 +10,22 @@
             Welcome to your Pokémon adventure! Enter your trainer name to begin your journey.
           </p>
         </div>
-        
+
         <form (ngSubmit)="onSubmit()" class="space-y-6">
           <div class="form-group">
             <label for="trainerName" class="form-label text-left">
               Trainer Name
             </label>
-            <input 
-              type="text" 
-              id="trainerName" 
-              [(ngModel)]="trainerName" 
-              name="trainerName"
-              class="form-input"
-              placeholder="Enter your trainer name..."
-              required 
-              autocomplete="off"
-            />
+            <input type="text" id="trainerName" [(ngModel)]="trainerName" name="trainerName" class="form-input"
+              placeholder="Enter your trainer name..." required autocomplete="off" />
           </div>
-          
-          <button 
-            type="submit" 
-            class="btn btn-primary w-full text-lg py-3"
-            [disabled]="!trainerName.trim()"
-          >
+
+          <button type="submit" class="btn btn-primary w-full text-lg py-3" [disabled]="!trainerName.trim()">
             <img src="/assets/Closed Pokeball.png" alt="Start" class="pokeball-icon-sm" />
             Start Your Journey
           </button>
         </form>
-        
+
         <div class="mt-8 text-sm text-muted">
           <p>Ready to catch 'em all? Your adventure awaits!</p>
         </div>
@@ -47,43 +35,43 @@
 </div>
 
 <style>
-.min-h-screen {
-  min-height: 100vh;
-}
-
-.max-w-md {
-  max-width: 28rem;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.w-full {
-  width: 100%;
-}
-
-.space-y-6 > * + * {
-  margin-top: 1.5rem;
-}
-
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
-@media (max-width: 640px) {
-  .container {
-    padding: 0 1rem;
+  .min-h-screen {
+    min-height: 100vh;
   }
-  
-  .text-4xl {
-    font-size: 2rem;
+
+  .max-w-md {
+    max-width: 28rem;
   }
-  
-  .text-lg {
-    font-size: 1rem;
+
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
   }
-}
+
+  .w-full {
+    width: 100%;
+  }
+
+  .space-y-6>*+* {
+    margin-top: 1.5rem;
+  }
+
+  .py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .text-4xl {
+      font-size: 2rem;
+    }
+
+    .text-lg {
+      font-size: 1rem;
+    }
+  }
 </style>
