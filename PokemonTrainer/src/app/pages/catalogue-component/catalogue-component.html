@@ -1,1 +1,13 @@
-<p>catalogue-component works!</p>
+
+<div>
+    <h1>Pokémon Catalogue</h1>
+    <p>Total loaded: {{ pokemonList.length }}</p>
+
+    @for(pokemon of pokemonList; track pokemon.id){
+    <span>
+        <img [src]="pokemon.spriteUrl" [alt]="pokemon.name" />
+        <!-- <p>{{pokemon.id}}</p> -->
+        <p>{{ pokemon.name | titlecase}}</p>
+    </span>
+    }
+</div>

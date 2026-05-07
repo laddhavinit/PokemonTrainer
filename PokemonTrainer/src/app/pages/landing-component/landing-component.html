@@ -1,1 +1,15 @@
-<p>landing-component works!</p>
+
+<div>
+  <h1>Welcome Pokémon Trainer!</h1>
+  <form (ngSubmit)="onSubmit()">
+    <label for="trainerName">Enter your Trainer Name:</label>
+    <input 
+      type="text" 
+      id="trainerName" 
+      [(ngModel)]="trainerName" 
+      name="trainerName"
+      required 
+    />
+    <button type="submit">Start Journey</button>
+  </form>
+</div>
