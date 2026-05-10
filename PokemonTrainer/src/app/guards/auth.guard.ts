@@ -1,5 +1,5 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
@@ -12,14 +12,29 @@ export class AuthGuard implements CanActivate {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  canActivate(): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     if (isPlatformBrowser(this.platformId)) {
       const trainerName = localStorage.getItem('trainerName');
-      
-      if (trainerName && trainerName.trim()) {
-        return true; // Allow access
+      const isLoggedIn = trainerName && trainerName.trim();
+      const targetPath = route.routeConfig?.path || '';
+
+      if (isLoggedIn) {
+        // User is logged in
+        if (targetPath === '') {
+          // Trying to access landing page, redirect to catalogue
+          this.router.navigate(['/catalogue']);
+          return false;
+        }
+        // Allow access to catalogue/trainer pages
+        return true;
       } else {
-        this.router.navigate(['/']); // Redirect to landing page
+        // User is NOT logged in
+        if (targetPath === '' || targetPath === undefined) {
+          // Allow access to landing page
+          return true;
+        }
+        // Block access to catalogue/trainer, redirect to landing
+        this.router.navigate(['/']);
         return false;
       }
     }

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Trainer - Execution Flow Map</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .flow-container {
+            padding: 40px;
+        }
+        
+        .phase {
+            margin-bottom: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+        }
+        
+        .phase-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e74c3c;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            position: absolute;
+            left: -15px;
+            top: 15px;
+            background: #e74c3c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            padding-left: 25px;
+        }
+        
+        .step-description {
+            color: #555;
+            padding-left: 25px;
+        }
+        
+        .file-path {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .decision {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .decision .step-number {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .service {
+            background: #d1ecf1;
+            border-left-color: #17a2b8;
+        }
+        
+        .service .step-number {
+            background: #17a2b8;
+        }
+        
+        .component {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .component .step-number {
+            background: #28a745;
+        }
+        
+        .guard {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        
+        .guard .step-number {
+            background: #dc3545;
+        }
+        
+        .arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #3498db;
+            margin: 20px 0;
+        }
+        
+        .flow-branches {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .branch {
+            border: 2px dashed #bdc3c7;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .branch-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .legend {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 Pokemon Trainer Application</h1>
+            <p>Execution Flow Map - ng serve Command</p>
+        </div>
+        
+        <div class="flow-container">
+            <!-- Phase 1: Application Bootstrap -->
+            <div class="phase">
+                <div class="phase-title">📱 Phase 1: Application Bootstrap</div>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Angular CLI starts development server</div>
+                    <div class="step-description">
+                        Webpack dev server starts, compiles TypeScript, and serves the application on localhost:4200
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Load main.ts</div>
+                    <div class="step-description">
+                        Entry point: <span class="file-path">src/main.ts</span><br>
+                        Calls <code>bootstrapApplication(App, appConfig)</code>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Load App Configuration</div>
+                    <div class="step-description">
+                        Loads: <span class="file-path">src/app/app.config.ts</span><br>
+                        Sets up providers, routing, and other app-wide configurations
+                    </div>
+                </div>
+                
+                <div class="step component">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Initialize App Component</div>
+                    <div class="step-description">
+                        Loads: <span class="file-path">src/app/app.ts</span><br>
+                        Creates root component, sets up router outlet and header visibility logic
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- Phase 2: Service Initialization -->
+            <div class="phase">
+                <div class="phase-title">🔧 Phase 2: Service Initialization (Dependency Injection)</div>
+                
+                <div class="step service">
+                    <div class="step-number">5</div>
+                    <div class="step-title">PokemonService Creation Trigger</div>
+                    <div class="step-description">
+                        <strong>When:</strong> First component that injects PokemonService is created<br>
+                        <strong>Where:</strong> Angular's DI system detects <code>private pokemonService: PokemonService</code> in:<br>
+                        • <span class="file-path">catalogue.component.ts</span> constructor<br>
+                        • <span class="file-path">trainer.component.ts</span> constructor<br>
+                        • <span class="file-path">header.component.ts</span> constructor
+                    </div>
+                </div>
+                
+                <div class="step service">
+                    <div class="step-number">6</div>
+                    <div class="step-title">PokemonService Constructor Executes</div>
+                    <div class="step-description">
+                        <strong>File:</strong> <span class="file-path">src/app/services/pokemon.service.ts</span><br>
+                        <strong>Singleton Creation:</strong> Due to <code>providedIn: 'root'</code>, only ONE instance is created<br>
+                        • Calls <code>loadCaughtPokemonIds()</code> - reads trainer's caught Pokemon from localStorage<br>
+                        • Calls <code>loadTotalCountFromCache()</code> - reads total Pokemon count from sessionStorage<br>
+                        • Initializes all signals with default values
+                    </div>
+                </div>
+                
+                <div class="step service">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Service Instance Injection</div>
+                    <div class="step-description">
+                        Angular DI injects the SAME PokemonService instance into all components that request it<br>
+                        <strong>Shared State:</strong> All components share the same service data (signals, cache, etc.)
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- Phase 3: Routing Decision -->
+            <div class="phase">
+                <div class="phase-title">🛣️ Phase 3: Initial Route Resolution</div>
+                
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Router Navigation Starts</div>
+                    <div class="step-description">
+                        Angular Router attempts to navigate to the initial route (usually '/')
+                    </div>
+                </div>
+                
+                <div class="step guard">
+                    <div class="step-number">8</div>
+                    <div class="step-title">AuthGuard Execution</div>
+                    <div class="step-description">
+                        Executes: <span class="file-path">src/app/guards/auth.guard.ts</span><br>
+                        • Checks if running in browser (SSR safety)<br>
+                        • Reads <code>trainerName</code> from localStorage<br>
+                        • Determines authentication status
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- Phase 4: Route Branches -->
+            <div class="phase">
+                <div class="phase-title">🔀 Phase 4: Route Decision Branches</div>
+                
+                <div class="flow-branches">
+                    <!-- Logged In Branch -->
+                    <div class="branch">
+                        <div class="branch-title">✅ User IS Logged In</div>
+                        
+                        <div class="step decision">
+                            <div class="step-number">9a</div>
+                            <div class="step-title">Check Target Route</div>
+                            <div class="step-description">
+                                If trying to access landing page ('') → Redirect to '/catalogue'<br>
+                                If accessing '/trainer' or '/catalogue' → Allow access
+                            </div>
+                        </div>
+                        
+                        <div class="step component">
+                            <div class="step-number">10a</div>
+                            <div class="step-title">Load Target Component</div>
+                            <div class="step-description">
+                                <strong>For Catalogue:</strong> <span class="file-path">catalogue.component.ts</span><br>
+                                <strong>For Trainer:</strong> <span class="file-path">trainer.component.ts</span><br>
+                                <strong>⚡ PokemonService gets created HERE</strong> when component constructor runs
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Not Logged In Branch -->
+                    <div class="branch">
+                        <div class="branch-title">❌ User NOT Logged In</div>
+                        
+                        <div class="step decision">
+                            <div class="step-number">9b</div>
+                            <div class="step-title">Check Target Route</div>
+                            <div class="step-description">
+                                If trying to access landing page ('') → Allow access<br>
+                                If accessing '/trainer' or '/catalogue' → Redirect to '/'
+                            </div>
+                        </div>
+                        
+                        <div class="step component">
+                            <div class="step-number">10b</div>
+                            <div class="step-title">Load Landing Component</div>
+                            <div class="step-description">
+                                Loads: <span class="file-path">landing.component.ts</span><br>
+                                Shows trainer name input form
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- Phase 5: Component Lifecycle -->
+            <div class="phase">
+                <div class="phase-title">🔄 Phase 5: Component Lifecycle & Data Loading</div>
+                
+                <div class="step component">
+                    <div class="step-number">11</div>
+                    <div class="step-title">Component Constructor Execution</div>
+                    <div class="step-description">
+                        <strong>🎯 THIS IS WHERE PokemonService GETS CREATED!</strong><br>
+                        When component constructor runs: <code>constructor(private pokemonService: PokemonService)</code><br>
+                        Angular DI system creates PokemonService instance and injects it into the component
+                    </div>
+                </div>
+                
+                <div class="step component">
+                    <div class="step-number">12</div>
+                    <div class="step-title">ngOnInit Lifecycle Hook</div>
+                    <div class="step-description">
+                        <strong>Landing Component:</strong> Sets up form and validation<br>
+                        <strong>Catalogue Component:</strong> Calls <code>pokemonService.refreshCaughtPokemonIds()</code> and <code>loadCurrentPage()</code><br>
+                        <strong>Trainer Component:</strong> Calls <code>pokemonService.refreshCaughtPokemonIds()</code> (effect handles loading)
+                    </div>
+                </div>
+                
+                <div class="step service">
+                    <div class="step-number">13</div>
+                    <div class="step-title">API Calls (if needed)</div>
+                    <div class="step-description">
+                        <strong>Catalogue:</strong> <code>loadPokemonPage()</code> → Fetches Pokemon list from PokeAPI or cache<br>
+                        <strong>Trainer:</strong> <code>getCaughtPokemon()</code> → Fetches caught Pokemon details from PokeAPI or cache
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow">⬇️</div>
+
+            <!-- Phase 6: Rendering -->
+            <div class="phase">
+                <div class="phase-title">🎨 Phase 6: Template Rendering & UI Display</div>
+                
+                <div class="step component">
+                    <div class="step-number">14</div>
+                    <div class="step-title">Header Component Rendering</div>
+                    <div class="step-description">
+                        <span class="file-path">header.component.ts</span> renders if not on landing page<br>
+                        Shows navigation, trainer name, and Pokemon count
+                    </div>
+                </div>
+                
+                <div class="step component">
+                    <div class="step-number">15</div>
+                    <div class="step-title">Main Component Template Rendering</div>
+                    <div class="step-description">
+                        Component template renders with data from services<br>
+                        Angular change detection updates the DOM
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">16</div>
+                    <div class="step-title">Application Ready</div>
+                    <div class="step-description">
+                        🎉 Application is fully loaded and interactive!<br>
+                        User can now interact with the Pokemon Trainer application
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-title">🏷️ Legend</div>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f8f9fa; border: 1px solid #dee2e6;"></div>
+                        <span>General Step</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #d4edda;"></div>
+                        <span>Component</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #d1ecf1;"></div>
+                        <span>Service</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f8d7da;"></div>
+                        <span>Guard</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #fff3cd;"></div>
+                        <span>Decision Point</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

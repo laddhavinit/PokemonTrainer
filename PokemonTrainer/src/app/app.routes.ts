@@ -3,13 +3,12 @@ import { LandingComponent } from '@pages/landing/landing.component';
 import { TrainerComponent } from '@pages/trainer/trainer.component';
 import { CatalogueComponent } from '@pages/catalogue/catalogue.component';
 import { AuthGuard } from '@guards/auth.guard';
-import { LandingGuard } from '@guards/landing.guard';
 
 export const routes: Routes = [
     { 
         path: '', 
         component: LandingComponent,
-        canActivate: [LandingGuard]
+        canActivate: [AuthGuard]
     },
     { 
         path: 'trainer', 
