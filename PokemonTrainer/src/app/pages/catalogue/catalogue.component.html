@@ -1,0 +1,147 @@
+<div class="min-h-screen py-8">
+  <div class="container">
+    <!-- Header Section -->
+    <header class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-primary mb-4">
+        Pokémon Catalogue
+      </h1>
+      <div class="flex items-center justify-center gap-4 text-lg">
+        <span class="badge">
+          Total: {{ totalPokemon }}
+        </span>
+        <span class="badge badge-success">
+          Caught: {{ caughtCount }}
+        </span>
+        <span class="badge">
+          Page: {{ currentPage }} of {{ totalPages }}
+        </span>
+      </div>
+    </header>
+
+    <!-- Pokemon Grid -->
+    @if(isLoading) {
+    <div class="loading-state">
+      <div class="loading-spinner"></div>
+      <h3 class="text-xl font-semibold mb-2">Loading Pokémon...</h3>
+      <p class="text-muted">Fetching page {{ currentPage }} from PokéAPI...</p>
+    </div>
+    } @else {
+    <div class="pokemon-grid">
+      @for(pokemon of pokemonList; track pokemon.id) {
+      <div class="pokemon-card" [class.pokemon-card-caught]="pokemon.caught">
+        <div class="pokemon-image-container">
+          <img [src]="pokemon.spriteUrl" [alt]="pokemon.name" class="pokemon-image" loading="lazy" />
+          @if(pokemon.caught) {
+          <div class="caught-badge">
+            <img src="/assets/Caught Pokeball.png" alt="Caught" class="pokeball-icon" />
+          </div>
+          }
+        </div>
+
+        <div class="pokemon-info">
+          <h3 class="pokemon-name">{{ pokemon.name | titlecase }}</h3>
+          <p class="pokemon-id">#{{ pokemon.id.toString().padStart(3, '0') }}</p>
+        </div>
+
+        <div class="pokemon-actions">
+          @if(pokemon.caught) {
+          <button (click)="showReleaseModal(pokemon)" class="btn btn-secondary btn-sm">
+            <img src="/assets/Open Pokeball.png" alt="Release" class="pokeball-icon-sm" />
+            Release
+          </button>
+          } @else {
+          <button (click)="catchPokemon(pokemon)" class="btn btn-primary btn-sm">
+            <img src="/assets/Closed Pokeball.png" alt="Catch" class="pokeball-icon-sm" />
+            Catch
+          </button>
+          }
+        </div>
+      </div>
+      }
+    </div>
+
+      @if(pokemonList.length === 0 && !isLoading) {
+        <div class="empty-state">
+          <div class="text-6xl mb-4">🔍</div>
+          <h3 class="text-xl font-semibold mb-2">No Pokémon Found</h3>
+          <p class="text-muted">Unable to load Pokémon data. Please try again.</p>
+        </div>
+      }
+    }
+  </div>
+
+  <!-- Pagination Controls -->
+  @if(totalPages > 1) {
+  <div class="pagination-container">
+    <div class="pagination">
+      <!-- Previous Button -->
+      <button (click)="previousPage()" [disabled]="currentPage === 1" class="pagination-btn pagination-prev">
+        <img src="/assets/Open Pokeball.png" alt="Previous" class="pokeball-icon-sm" />
+        Previous
+      </button>
+
+      <!-- Page Numbers -->
+      <div class="pagination-numbers">
+        @if(getPageNumbers()[0] > 1) {
+        <button (click)="goToPage(1)" class="pagination-number">1</button>
+        @if(getPageNumbers()[0] > 2) {
+        <span class="pagination-dots">...</span>
+        }
+        }
+
+        @for(page of getPageNumbers(); track page) {
+        <button (click)="goToPage(page)" [class.pagination-number-active]="page === currentPage"
+          class="pagination-number">
+          {{ page }}
+        </button>
+        }
+
+        @if(getPageNumbers()[getPageNumbers().length - 1] < totalPages) {
+        @if(getPageNumbers()[getPageNumbers().length - 1] < totalPages - 1) {
+        <span class="pagination-dots">...</span>
+        }
+        <button (click)="goToPage(totalPages)" class="pagination-number">{{ totalPages }}</button>
+        }
+      </div>
+
+      <!-- Next Button -->
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="pagination-btn pagination-next">
+        Next
+        <img src="/assets/Closed Pokeball.png" alt="Next" class="pokeball-icon-sm" />
+      </button>
+    </div>
+
+    <!-- Page Info -->
+    <div class="pagination-info">
+      Showing {{ (currentPage - 1) * itemsPerPage + 1 }} - {{ Math.min(currentPage * itemsPerPage, totalPokemon) }} of
+      {{ totalPokemon }} Pokémon
+    </div>
+  </div>
+  }
+</div>
+
+<!-- Release Confirmation Modal -->
+<div class="modal fade" id="releaseModal" tabindex="-1" aria-labelledby="releaseModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="releaseModalLabel">Release Pokémon</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        @if(selectedPokemon()) {
+        <img [src]="selectedPokemon()!.spriteUrl" [alt]="selectedPokemon()!.name" class="pokemon-image mb-3" />
+        <h4>{{ selectedPokemon()!.name | titlecase }}</h4>
+        <p class="text-muted">Are you sure you want to release this Pokémon?</p>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="confirmRelease()" data-bs-dismiss="modal">
+          <img src="/assets/Open Pokeball.png" alt="Release" class="pokeball-icon-sm" />
+          Release
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

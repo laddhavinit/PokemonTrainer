@@ -33,10 +33,11 @@
         <div class="user-info">
           <span class="user-avatar">👤</span>
           <span class="user-name">{{ trainerName }}</span>
+          
         </div>
         
         <button 
-          (click)="logout()" 
+          (click)="showLogoutModal()" 
           class="logout-btn"
           title="Logout"
         >
@@ -47,3 +48,27 @@
     </div>
   </div>
 </header>
+
+<!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutModalLabel">Logout Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="text-6xl mb-3">👋</div>
+        <h4>Logout from Pokémon Trainer?</h4>
+        <p class="text-muted">Your Pokémon collection will be saved and available when you return.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="confirmLogout()" data-bs-dismiss="modal">
+          <img src="/assets/Open Pokeball.png" alt="Logout" class="pokeball-icon-sm" />
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

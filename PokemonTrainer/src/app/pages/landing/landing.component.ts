@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TrainerService } from '../../services/trainer.service';
+import { TrainerService } from '@services/trainer.service';
 
 @Component({
-  selector: 'app-landing-component',
+  selector: 'app-landing',
   imports: [FormsModule],
-  templateUrl: './landing-component.html',
-  styleUrl: './landing-component.css',
+  templateUrl: './landing.component.html',
+  styleUrl: './landing.component.scss',
 })
 export class LandingComponent {
   trainerName: string = '';

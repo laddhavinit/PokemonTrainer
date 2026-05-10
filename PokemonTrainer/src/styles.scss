@@ -271,3 +271,25 @@ body {
   width: 18px;
   height: 18px;
 }
+
+/* Bootstrap overrides to maintain our theme */
+.btn-primary {
+  --bs-btn-bg: var(--primary-color);
+  --bs-btn-border-color: var(--primary-color);
+  --bs-btn-hover-bg: var(--primary-hover);
+  --bs-btn-hover-border-color: var(--primary-hover);
+}
+
+/* Modal Styles */
+.modal-content {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.modal-header {
+  border-bottom: 2px solid var(--border);
+}
+
+.modal-footer {
+  border-top: 2px solid var(--border);
+}
